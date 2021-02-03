@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
 DB_HOST="localhost"
-DB_USER="pouet"
-DB_NAME="isitp"
-DB_PASS="pouet"
+DB_USER="isi"
+DB_NAME="isi"
+DB_PASS="toto"
