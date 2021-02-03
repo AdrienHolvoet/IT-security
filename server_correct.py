@@ -10,11 +10,11 @@ class VulnerableApp(object):
 
     @cherrypy.expose
     def index(self, **post):
-        cursor = self.conn.cursor()
+        cursor = self.conn.cursor(prepared=True)
         if cherrypy.request.method == "POST":
-            requete = "INSERT INTO chaines (txt,who) VALUES('" + post["chaine"] + "','" + cherrypy.request.remote.ip + "')"
-            print("req: [" + requete + "]")
-            cursor.execute(requete)
+            requete = "INSERT INTO chaines (txt,who) VALUES(%s, %s)"
+            values = (post["chaine"], cherrypy.request.remote.ip)
+            cursor.execute(requete, values)
             self.conn.commit()
 
         chaines = []

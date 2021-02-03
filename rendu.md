@@ -38,7 +38,10 @@ La commande SQL ressemblerais à ça `INSERT INTO chaines (txt,who) VALUES ((SEL
 ## Question 4
 
 Rendre un fichier server_correct.py avec la correction de la faille de
-sécurité. Expliquez comment vous avez corrigé la faille.
+sécurité. Expliquez comment vous avez corrigé la faille.   
+
+Nous utilons donc un Parameterized query et prepared statement afin d'évitez les injections SQL.  Pour cela nous devons premièrement mettre en place un prepared statement sur notre cursor comme ceci : `cursor = self.conn.cursor(prepared=True)`. Ensuite, nous avons créer la parameterized SQL query qui utilisent deux placeholders comme ceci : `requete = "INSERT INTO chaines (txt,who) VALUES(%s, %s)"` Les inputs rentrés par l'utilisateur vont se retrouver dans un tuple  `values = (post["chaine"], cherrypy.request.remote.ip)` qui va prendre  la place de ces placeholders(%s, %s). Il ne suffit plus maintenant que d'utiliser la méthode `execute` du `cursor` afin d'exécutur notre requête SQL, celui-ci prend donc notre parameterized SQL query et notre tuple, comme ceci : `cursor.execute(requete, values)`.   
+Ce mécanisme permet d'empêcher donc l'injection SQL de la Question 3
 
 ## Question 5
 
