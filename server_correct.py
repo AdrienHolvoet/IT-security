@@ -18,7 +18,7 @@ class VulnerableApp(object):
             self.conn.commit()
 
         chaines = []
-        cursor.execute("SELECT txt,who FROM chaines");
+        cursor.execute("SELECT txt,who FROM chaines")
         for row in cursor.fetchall():
             chaines.append(row[0] + " envoye par: " + row[1])
 
