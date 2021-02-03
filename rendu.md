@@ -32,8 +32,8 @@ curl -d 'chaine=mon text%27%,%27ce que je veux%27) -- '  http://localhost:8080;
 
 * Expliquez comment obtenir des informations sur une autre table
 
-Pour obtenir les infos d'une autre table, il faudrait connaitre le nom de celle-ci et également les colonnes que l'on souhaite regarder. Et on pourrait alors combiner la commande INSERT INTO avec la commande SELECT pour selectionner les valeurs comprises dans une autres tables, les insérer dans notre table chaines qui s'affichera sur notre page web.
-La commande SQL ressemblerais à ça `INSERT INTO chaines(txt,who) SELECT col1, col2 FROM otherTable`
+Pour obtenir les infos d'une autre table, il faudrait connaitre le nom de celle-ci et également les colonnes que l'on souhaite regarder. Et on pourrait alors combiner la commande INSERT INTO avec la commande SELECT pour selectionner les valeurs comprises dans une autres tables, les insérer dans les colonnes txt et who de notre table chaines qui s'affichera sur notre page web.
+La commande SQL ressemblerais à ça `INSERT INTO chaines (txt,who) VALUES ((SELECT col1 FROM otherTable), (SELECT col2 FROM otherTable))`, il suffirait de limiter chaque select pour n'avoir qu'un seul resultat et ne pas provoquer une erreur SQL : 'Subquery returns more than 1 row'. Ca peut se faire par exemple en rajoutant une clause where id=1 et incrémenter cette id dans une boucle while où on exécutera notre commande curl en boucle afin de récuperer tous les enregistrements. Commande SQL final : `INSERT INTO chaines (txt,who) VALUES ((SELECT col1 FROM otherTable where id=i), (SELECT col2 FROM otherTable where id=i))` i s'incrémente à chaque boucle.
 
 ## Question 4
 
