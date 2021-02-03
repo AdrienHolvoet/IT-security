@@ -3,6 +3,7 @@
 import mysql.connector
 import cherrypy
 import config
+import html
 
 class VulnerableApp(object):
     def __init__(self):
@@ -13,12 +14,13 @@ class VulnerableApp(object):
         cursor = self.conn.cursor(prepared=True)
         if cherrypy.request.method == "POST":
             requete = "INSERT INTO chaines (txt,who) VALUES(%s, %s)"
-            values = (post["chaine"], cherrypy.request.remote.ip)
+            values = (html.escape(post["chaine"]), cherrypy.request.remote.ip)
+            print("REQUETE: [" + requete + "]")
             cursor.execute(requete, values)
             self.conn.commit()
 
         chaines = []
-        cursor.execute("SELECT txt,who FROM chaines")
+        cursor.execute("SELECT txt,who FROM chaines");
         for row in cursor.fetchall():
             chaines.append(row[0] + " envoye par: " + row[1])
 
