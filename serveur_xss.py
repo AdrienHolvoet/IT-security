@@ -15,7 +15,6 @@ class VulnerableApp(object):
         if cherrypy.request.method == "POST":
             requete = "INSERT INTO chaines (txt,who) VALUES(%s, %s)"
             values = (html.escape(post["chaine"]), cherrypy.request.remote.ip)
-            print("REQUETE: [" + requete + "]")
             cursor.execute(requete, values)
             self.conn.commit()
 
@@ -38,7 +37,7 @@ Bonjour, je suis une application vulnerable qui sert a inserer des chaines dans 
 <p>
 Liste des chaines actuellement insérées:
 <ul>
-'''+"\n".join(["<li>" + s + "</li>" for s in chaines])+'''
+'''+"\n".join(["<li>" + html.escape(s) + "</li>" for s in chaines])+'''
 </ul>
 </p>
 

