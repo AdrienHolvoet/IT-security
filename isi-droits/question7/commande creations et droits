@@ -1,0 +1,54 @@
+- Supprimmer la lecture à tout les autres users
+
+umask 0117  #for all users
+- Creation user 
+
+sudo adduser admin
+sudo adduser lambda_a
+sudo adduser lambda_b
+
+
+- Creation groupes
+
+sudo groupadd groupe_a
+sudo usermod -a -G groupe_a lambda_a
+sudo groupadd groupe_b
+sudo usermod -a -G groupe_b lambda_b
+
+
+- Creation directories
+
+mkdir dir_a
+mkdir dir_b
+mkdir dir_c
+sudo groupadd groupe_c
+sudo chgrp groupe_c dir_c
+sudo chgrp groupe_b dir_b
+sudo chgrp groupe_a dir_a
+
+sudo usermod -a -G groupe_c lambda_b
+sudo usermod -a -G groupe_c lambda_a
+sudo usermod -a -G groupe_c admin
+sudo usermod -a -G groupe_a admin
+sudo usermod -a -G groupe_b admin
+
+
+- Creation Droits 
+
+sudo chmod o-rw dir_b
+sudo chmod o-rw dir_a
+sudo chmod g-w dir_c
+
+// sticky bit empêcher d'effacer/renommer des fichiers qui ne leur appartienne pas.
+sudo chmod +t dir_b 
+sudo chmod +t dir_a
+
+
+
+
+// quand on crée des fichier/dir dans ces repos ils ont le même groupeid que leur main repo
+sudo chmod g+s dir_a
+sudo chmod g+s dir_b
+sudo chmod admin dir_c
+
+
